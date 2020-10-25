@@ -45,7 +45,7 @@ MIDDLEWARE = [
     "wagtail.core.middleware.SiteMiddleware",
 ]
 
-ROOT_URLCONF = "wagtail_guide.tests.urls"
+ROOT_URLCONF = "wagtail_external_links.tests.urls"
 
 TEMPLATES = [
     {
@@ -64,3 +64,5 @@ TEMPLATES = [
 ]
 WAGTAIL_SITE_NAME = "llama-savers"
 USE_TZ = True
+
+BASE_URL = "http://example.com"

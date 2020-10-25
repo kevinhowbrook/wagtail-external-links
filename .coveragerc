@@ -1,0 +1,6 @@
+[run]
+include = wagtail_external_links/*
+omit = *migrations*, *tests*
+
+[html]
+directory = coverage_html_report

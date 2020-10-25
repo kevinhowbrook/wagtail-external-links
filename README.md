@@ -1,57 +1,21 @@
-# Wagtail PYPI Template
+# Wagtail External Links
 
-A good starting point for a wagtail pypi package.
+## What is it?
 
-Replace `yourapp` in these files with what you intend to build
+A template tag that checks if a link is internal of external.
 
-Circle ci config example is added, once it fully configured add a badge to the readme to indicate passing:
+## How does it work?
 
-```
-[![CircleCI](https://circleci.com/gh/yourname/yourapp.svg?style=shield&circle)](https://circleci.com/gh/yourname/yourapp)
-```
+You can define a list of "internal urls". Urls that you would always wont to be internal, anything not in this list will be counted as external. It also works with `firstof`!
 
-## Publishing to PYPI
+## Why?
 
-To package your app for pypi you will need twine:
+It's generally bad form to make _all_ external links open in a new tab. So this gives the developers a bit more control on how and where to check for external links.
 
-```
-pip install twine
-```
-
-Then run the following:
+## Example:
 
 ```
-python setup.py sdist bdist_wheel
+{% is_external 'https://bbc.co.uk' %} would return True
+{% is_external '' '' %} would return False (no links)
+{% is_external 'https://yoursite.com' 'https://bbc.co.uk' %}   would return False
 ```
-
-You should now have a dist/ directory:
-
-```
-twine check dist/*
-```
-
-Watch out for:
-
-```
-Checking distribution dist/PACKAGE-NAME-VERSION.tar.gz: warning: `long_description_content_type` missing.  defaulting to `text/x-rst`.
-Failed
-
-The project's long_description has invalid markup which will not be rendered on PyPI. The following syntax errors were detected:
-line 18: Warning: Inline literal start-string without end-string.
-```
-
-That's ok. twine has an issue with markdown
-
-Get an account on https://test.pypi.org and https://pypi.org
-
-Then run
-
-```
-twine upload --repository-url https://test.pypi.org/legacy/ dist/* * to safely check your package twine upload dist/* -- when ready to publish
-```
-
-or
-
-`twine upload dist/*`
-
-:tada:
