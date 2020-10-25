@@ -1,9 +1,10 @@
 # Python CircleCI 2.0 configuration file
 version: 2
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     environment:
-      CC_TEST_REPORTER_ID: "4d2f7299-d4b9-4002-81ad-3624c983d232"
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -30,3 +31,5 @@ jobs:
             python runtests.py
             codecov
             bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+      - codecov/upload:
+          file: { { coverage_report_filepath } }
