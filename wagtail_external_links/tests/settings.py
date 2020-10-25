@@ -66,3 +66,5 @@ WAGTAIL_SITE_NAME = "llama-savers"
 USE_TZ = True
 
 BASE_URL = "http://example.com"
+
+WAGTAIL_EXTERNAL_LINKS_CONFIG = {"internal_domains": ["example.com"]}

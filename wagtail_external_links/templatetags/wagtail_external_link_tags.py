@@ -1,24 +1,10 @@
 from urllib.parse import urlparse
 
 from django import template
-from django.conf import settings
+
+from ..settings import wagtail_external_links_settings
 
 register = template.Library()
-
-
-default_domains = [
-    settings.BASE_URL,
-    "rca-production.herokuapp.com",
-    "rca-staging.herokuapp.com",
-    "rca-development.herokuapp.com",
-    "rca.ac.uk",
-    "www.rca.ac.uk",
-    "0.0.0.0",
-    "localhost",
-    "rca-verdant-staging.herokuapp.com",
-    "rca-verdant-production.herokuapp.com",
-    "beta.rca.ac.uk",
-]
 
 
 @register.simple_tag(name="is_external")
@@ -30,10 +16,10 @@ def is_external(*args):
     icons for external links
     example single {% is_external 'https://bbc.co.uk' %} would return True
     example empty {% is_external '' '' %} would return False
-    example multiple {% is_external 'https://yoursite.ac.uk' 'https://bbc.co.uk' %}
+    example multiple {% is_external 'https://yoursite.com' 'https://bbc.co.uk' %}
     would return False
     Returns:
-        Boolean -- True if the url value is not in the list of default domains
+        Boolean -- True if the url value is not in the list of configured domains
     """
     # find the first non empty value
     try:
@@ -44,7 +30,10 @@ def is_external(*args):
 
     # Catch anchor links
     if link != "#":
-        if urlparse(link).hostname not in default_domains:
+        if (
+            urlparse(link).hostname
+            not in wagtail_external_links_settings.internal_domains
+        ):
             return True
 
     return False
