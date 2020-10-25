@@ -1,5 +1,7 @@
 # Wagtail External Links
 
+[![codecov](https://codecov.io/gh/kevinhowbrook/wagtail-external-links/branch/main/graph/badge.svg?token=Zbmp8IuIQ2)](undefined)
+
 ## What is it?
 
 A template tag that checks if a link is internal of external.
