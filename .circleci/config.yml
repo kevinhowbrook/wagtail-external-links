@@ -29,4 +29,4 @@ jobs:
             . venv/bin/activate
             python runtests.py
             codecov
-            bash <(curl -s https://codecov.io/bash) -t "4d2f7299-d4b9-4002-81ad-3624c983d232"
+            bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
