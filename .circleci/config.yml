@@ -22,10 +22,11 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install wagtail
+            pip install wagtail codecov
       - run:
           name: run tests
           command: |
             . venv/bin/activate
             python runtests.py
+            codecov
             bash <(curl -s https://codecov.io/bash)
