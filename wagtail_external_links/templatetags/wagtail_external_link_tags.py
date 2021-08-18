@@ -33,7 +33,8 @@ def is_external(*args):
     return (
         link != "#"
         and link[0] != "/"
-        and urlparse(link).hostname not in default_domains
+        and urlparse(link).hostname
+        not in wagtail_external_links_settings.internal_domains
     )
 
     return False
