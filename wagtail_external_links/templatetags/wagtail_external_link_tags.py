@@ -29,11 +29,11 @@ def is_external(*args):
         return False
 
     # Catch anchor links
-    if link != "#":
-        if (
-            urlparse(link).hostname
-            not in wagtail_external_links_settings.internal_domains
-        ):
-            return True
+    # and '/' links that come from page.url values
+    return (
+        link != "#"
+        and link[0] != "/"
+        and urlparse(link).hostname not in default_domains
+    )
 
     return False
