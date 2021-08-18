@@ -25,6 +25,10 @@ class TestExternalLinks(TestCase):
         self.assertFalse(is_external("", BASE_URL))
         self.assertFalse(is_external(BASE_URL, ""))
 
+    def test_an_internal_path(self):
+        # When / or page.url is passed, this should be marked False
+        self.assertFalse(is_external("/home"))
+
 
 class TestSettings(TestCase):
     def test_settings(self):
