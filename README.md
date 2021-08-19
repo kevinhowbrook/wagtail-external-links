@@ -21,10 +21,6 @@ Define a list if "internal domains" in settings. These are links that you would 
 {% is_external 'https://bbc.co.uk' %} would return True
 {% is_external '' '' %} would return False (no links)
 {% is_external 'https://yoursite.com' 'https://bbc.co.uk' %}   would return False
-
-usage:
-{% is_external value.one value.two as is_external %}
-<a href="{{ url }}" {% if is_external %}target="_blank"{% endif %}>Some link</a>
 ```
 
 ## Configuration
@@ -54,6 +50,10 @@ To use in a template, first load the template tag by adding the following to you
 ```[html]
 {% load wagtail_external_link_tags %}
 
-To use:
+Usage E.G:
 {% is_external 'https://bbc.co.uk' %}
+
+Usage E.G:
+{% is_external value.href href as is_external %}
+<a class="link {% if is_external %}link--external{% endif %}" {% if is_external %} target="_blank" {% endif %} href="{% firstof value.href href %}">
 ```
