@@ -57,3 +57,28 @@ Usage E.G:
 {% is_external value.href href as is_external %}
 <a class="link {% if is_external %}link--external{% endif %}" {% if is_external %} target="_blank" {% endif %} href="{% firstof value.href href %}">
 ```
+
+## What this doesn't handle...
+
+Rich text links.
+
+External links added in rich text need extra attention, add the following to a wagtail_hooks file
+
+```
+class TargetBlankExternalLinkHandler(LinkHandler):
+    identifier = "external"
+
+    @classmethod
+    def expand_db_attributes(cls, attrs):
+        href = attrs["href"]
+        target = 'target="_blank"' if is_external(href) else ""
+        _class = 'class="external-link"' if is_external(href) else ""
+        rel = 'rel="noopener"' if is_external(href) else ""
+        return f'<a href="{escape(href)}"{target} {_class} {rel}>'
+
+
+@hooks.register("register_rich_text_features")
+def register_external_link(features):
+    features.register_link_type(TargetBlankExternalLinkHandler)
+
+```
